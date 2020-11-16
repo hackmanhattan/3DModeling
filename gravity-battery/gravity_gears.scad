@@ -16,11 +16,25 @@ module filled_gear(modul, tooth_number, width, bore, pressure_angle = 20, helix_
     }
 }
 
-module stacked_gears(inner_tooth,outer_tooth,bore) {
+module stacked_gears(inner_tooth,outer_tooth,bore_a,bore_b) {
     union() {
-    filled_gear(modul=TGTMODUL, tooth_number=inner_tooth, width=8, bore=bore, pressure_angle=pressure_angle, helix_angle=0, optimized=false);
+    filled_gear(modul=TGTMODUL, tooth_number=inner_tooth, width=8, bore=bore_a, pressure_angle=pressure_angle, helix_angle=0, optimized=false);
     translate([0,0,-5])
-        filled_gear(modul=TGTMODUL, tooth_number=outer_tooth, width=5, bore=bore, pressure_angle=pressure_angle, helix_angle=0, optimized=false);
+        filled_gear(modul=TGTMODUL, tooth_number=outer_tooth, width=5, bore=bore_a, pressure_angle=pressure_angle, helix_angle=0, optimized=false);
+        difference() {
+            translate([0,0,8])
+                cylinder(d=bore_a+8,h=26,center=true,$fn=tgtdetail);
+            //top hole
+            translate([0,0,12])
+            cylinder(d=bore_a,h=24,center=true,$fn=tgtdetail);
+                        translate([0,0,-12])
+            cylinder(d=bore_b,h=24,center=true,$fn=tgtdetail);
+            translate([0,5,14])
+                rotate([90,0,0])
+                    cylinder(d=3.5,h=10,center=true,$fn=tgtdetail);
+     
+        }
+
     }
 }
 
@@ -73,21 +87,26 @@ module weight_spool_cap(bore) {
 }
 //filled_gear(modul=1, tooth_number=50, width=5, bore=2, pressure_angle=20, helix_angle=0, optimized=false);
        
+/*
 translate([0,0,-60])
 weight_spool(tgtbore);
 translate([0,0,-60])
 weight_spool_cap(tgtbore);
-stacked_gears(20,80,tgtbore);
+
+stacked_gears(20,80,tgtbore,tgtbore);
+
+
 
 color([1,0,0])
-translate([-48.5,0,2])
-rotate([0,0,34])
+translate([-50.5,0,2])
+rotate([0,0,27])
 mirror([0,0,1])
-stacked_gears(16,60,tgtbore);
-
+stacked_gears(20,60,tgtbore,tgtbore);
+*/
 //last gear for motor
 
-translate([-91.5,0,0])
-rotate([0,0,25])
+translate([-94,0,0])
+rotate([0,0,28])
 color([0,1,0])
-stacked_gears(26,60,6.27);
+stacked_gears(26,30,tgtbore,2);
+
