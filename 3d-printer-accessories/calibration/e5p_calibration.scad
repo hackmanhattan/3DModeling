@@ -48,15 +48,17 @@ module calibration_spiral() {
 }
 
 module overhang(intervals) {
+    tgt_y = 4;
+    pillar_width = 3;
     for(i=[1:6]) {
-        translate([0,i*3,0])
+        translate([0,i*(tgt_y + 1),0])
         union() {
             translate([0,0,-1.4]) 
-                cube([6+(i*intervals),2,0.2],center=true);
+                cube([pillar_width*2+(i*intervals),tgt_y,0.2],center=true);
             difference() {
-                cube([6+(i*intervals),2,3],center=true);
-                translate([0,0,-2])
-                    cube([4 + (i*2),3,4],center=true);
+                cube([pillar_width*2+(i*intervals),tgt_y,3],center=true);
+                translate([0,0,-1.5])
+                    cube([1 + (i*2),tgt_y+2,4],center=true);
             }
         }
     }
@@ -64,4 +66,4 @@ module overhang(intervals) {
 
 }
 
-overhang(2);
+calibration_spiral();
