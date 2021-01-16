@@ -3,7 +3,7 @@ width = 0.45; //modify so CURA renders as just one line draw
 
 SPIRAL_LENGTH = 30;
 
-CYCLE_COUNT = 20; // modify so spiral fits print bed
+CYCLE_COUNT = 8; // modify so spiral fits print bed
 tgtdetail = 90;
 module calibration_spiral() {
 	for(i=[0:CYCLE_COUNT]) {

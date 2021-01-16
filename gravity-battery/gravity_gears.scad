@@ -6,7 +6,7 @@ tgtdetail = 90;
 TGTMODUL = 1;
 pressure_angle = 30;
 
-tgtbore = 6.6;
+tgtbore = 8.1;
 axis_list = [0,-50.5,-94];
 bearing_outer_diameter = 22.25;
 
@@ -33,13 +33,13 @@ module stacked_gears(inner_tooth,outer_tooth,bore_a,bore_b) {
         filled_gear(modul=TGTMODUL, tooth_number=outer_tooth, width=5, bore=bore_a, pressure_angle=pressure_angle, helix_angle=0, optimized=false);
         difference() {
             translate([0,0,14])
-                cylinder(d=bore_a+8,h=35,center=true,$fn=tgtdetail);
+                cylinder(d=bore_a+8,h=25,center=true,$fn=tgtdetail);
             //top hole
             translate([0,0,8])
             cylinder(d=bore_a,h=50,center=true,$fn=tgtdetail);
             translate([0,0,-4])
             cylinder(d=bore_b,h=50,center=true,$fn=tgtdetail);
-            translate([0,5,24])
+            translate([0,5,22])
                 rotate([90,0,0])
                     cylinder(d=3,h=10,center=true,$fn=tgtdetail);
      
@@ -168,9 +168,16 @@ stacked_gears(20,60,tgtbore,tgtbore);
 translate([-94,0,0])
 rotate([0,0,28])
 color([0,1,0])
-stacked_gears(26,30,tgtbore,tgtbore);
+stacked_gears(26,60,tgtbore,tgtbore);
 
 //adapter(6.35,7.85);
 
 //frame(axis_list,bearing_outer_diameter);
 //adapter(tgtbore,7.85);
+
+//test_bore(tgtbore);
+
+//motor gear
+//translate([-135,0,0])
+//rotate([0,0,18])
+//spur_gear(1, 12, 8, 2, pressure_angle, 0, true);
